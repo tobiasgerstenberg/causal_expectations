@@ -1,0 +1,52 @@
+{
+	"stim": [
+		{"ID": 1,
+		"structure": "xor",
+		"pA": 0.2,
+		"pB": 0.8,
+		"learning": [
+		[false, false],
+		[false, true],
+		[true, false],
+		[true, false],
+		[true, false],
+		[true, false],
+		[true, false],
+		[true, false],
+		[true, false],
+		[true, true]]
+		},
+		{"ID": 2,
+		"structure": "xor",
+		"pA": 0.8,
+		"pB": 0.2,
+		"learning": [
+		[true, true],
+		[true, false],
+		[false, true],
+		[false, true],
+		[false, true],
+		[false, true],
+		[false, true],
+		[false, true],
+		[false, true],
+		[false, false]]
+		}
+],
+	"questions":
+		{
+		"practice": [
+			["Ablock","Did <span style='color:#3EA333;font-weight:bold'>ball A</span> get blocked?"],
+			["Bblock","Did <span style='color:#2662E0;font-weight:bold'>ball B</span> get blocked?"],
+			["outcome","Did <b>ball E</b> go through the gate?"]
+		],
+		"prediction":[
+			["Awill", "<span style='color:#3EA333;font-weight:bold'>Ball A</span> will hit <b>ball E</b>."],
+			["Bwill", "<span style='color:#2662E0;font-weight:bold'>Ball B</span> will hit <b>ball E</b>."],
+			["counterfactual", "If only one of two balls goes through the block and hits <b>ball E</b> then <b>ball E</b> will go through the gate."]
+		],
+		"test": [{"type":"Acause","q":"<b>Ball E</b> didn't go through the gate because <span style='color:#3EA333;font-weight:bold'>ball A</span> didn't go through the motion block."},
+			{"type":"Bcause","q":"<b>Ball E</b> didn't go through the gate because <span style='color:#2662E0;font-weight:bold'>ball B</span> didn't go through the motion block."}
+		]
+	}
+}

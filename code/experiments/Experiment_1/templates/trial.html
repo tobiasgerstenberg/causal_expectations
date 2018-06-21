@@ -1,0 +1,135 @@
+<!-- INSTRUCTIONS1 -->
+<div class="slide" id="instructions">
+	<h1>Instructions</h1>
+	<div class="blue">
+	<p>In this experiment you will see video clips of colliding billiard balls. <span style='color:#3EA333;font-weight:bold'>Ball A</span> and <span style='color:#2662E0;font-weight:bold'>ball B</span> always start on the right side of the screen, and <b>ball E</b> is initially at rest (see Figure 1). There are also two red motion blocks. 
+
+	<p id='instruction_paragraph'></p>
+	
+<div class = "instruction_screenshots">
+		<div class = "screenshot">
+		<figure>
+			<img src="" alt="screenshot" width="100%" class='screenshot1'>
+			<figcaption>Figure 1: Starting position of the balls and motion blocks.</figcaption>
+		</figure>
+		</div>
+		
+		<div class = "screenshot">
+		<figure>
+			<img src="" alt="screenshot" width="100%" class='screenshot2'>
+			<figcaption id = 'fig2caption'></figcaption>
+		</figure>
+		</div>
+
+		<div class = "screenshot">
+		<figure>
+			<img src="" alt="screenshot" width="100%" class='screenshot3'>
+			<figcaption>Figure 3: Neither of the balls was blocked.</figcaption>
+		</figure>
+		</div>
+	</div>
+<div class="spacer"></div>
+
+	<p><span id = 'structure'></span> <span id = 'fig2info'></span> In Figure 3, <span style='color:#3EA333;font-weight:bold'>ball A</span> and <span style='color:#2662E0;font-weight:bold'>ball B</span> hit <b>ball E</b>, and <b>ball E</b> went through the gate.</p>
+
+<!-- <p class = 'instruction'></p> -->
+
+<p>You will now watch 10 video clips. Please pay close attention to what happens in each clip. <b>In particular, try to get a sense for how good each motion block is.</b></p>
+
+	</div>
+		<div class="continue">
+			<button type="button" class="next" >Start</button>
+		</div>
+		<p style="text-align: center;">Please press Start to begin with the experiment. </p>
+</div>
+
+<!-- LEARNING PHASE-->
+<div class="slide" id="practice">
+	<h1 style="text-align: center">Video clip</h1>
+	<p style="text-align: center">(Please don't change the zoom properties of your browser and leave the zoom at 100%.)</p>
+	<div class="spacer"></div>
+	<hr />
+	<div class="progress">
+		<div class="progress-text">Progress</div>
+		<div class="indicator-container">
+			<div class="indicator-outer">
+				<div class="indicator-stage"></div>
+			</div>
+		</div>
+	</div>
+	<div class="spacer"></div>
+	<hr />
+		<div class ="physics_world_practice"></div>
+	<div id='simulation_text' style="text-align:center"><p>Please press 'Start' to view the next clip.</p></div>
+		<div class="continue">
+			<button type="button" class="next" id="simulate">Start</button>
+	</div>
+	<hr />
+	<p style="text-align: center">Please answer the following questions after having watched the clip:</p>
+	<div id='questions'> </div>
+	<hr />
+</div>
+
+<!-- BRIDGE -->
+<div class="slide" id="bridge">
+	<h1>Well done so far!</h1>
+	<div class="blue">
+	<p>You will now watch one more clip, and we will ask you some different questions about the clip.</p>
+	<p>You will first see the beginning of the clip, and we will ask you to make predictions about what will happen.</p>
+	<p>You will then see the clip until the end, and we will ask you a question about what happened.</p>
+	<br>
+			</div>
+		<div class="continue">
+			<button type="button" class="next">Continue</button>
+		</div>
+		<p style="text-align: center;">Please press Continue to proceed. </p>
+</div>
+
+<!-- TEST PHASE -->
+<div class="slide" id="test">
+	<h1 style="text-align: center">Video clip</h1>
+	<p style="text-align: center">(Please don't change the zoom properties of your browser and leave the zoom at 100%.)</p>
+
+		<div id ="physics_world_test"></div>
+	<p style="text-align: center; font-weight:bold" id = 'question_prompt'></p>
+	<hr />
+	<div id='sliders'> </div>
+	<div id='choices'> </div>
+	<hr />
+	<div id='simulation_text2' style="text-align:center"><p>Please press 'Watch' to view the rest of the clip.</p></div>
+		<div class="continue">
+			<button type="button" class="next" id="simulate2">Watch</button>
+	</div>
+</div>
+
+<!-- DEMOGRAPHICS -->
+<div class="slide" id="demographics">
+	<h1>Demographic information</h1>
+	<div class="blue">
+		<p>What factors influenced how you made your causal judgments at the end of the experiment? Do you have any comments regarding the experiment? </p>
+
+		<textarea name="feedback" style="width:760px; height:100px;"  ></textarea> 
+
+		<p><b>Please answer the following questions about yourself to complete the experiment</b>:</p>
+
+		<p><b>1.</b> Age:
+			<input class = "demoQ numberQ" type="number" maxlength = "3" name="age" min="18" max="100" step = "1"> years
+		</p>
+
+		<p><b>2.</b> Gender:
+			<input class = "demoQ" type="radio" name="sex" value="female">Female
+			<input class = "demoQ" type="radio" name="sex" value="male" >Male
+		</p>
+		<br/>
+
+		<br/>
+
+		<p>Please press finish to complete the experiment.</p>
+
+	</div> 
+	
+	<div class="continue">
+		<button type="button" class="next" id="trial_finish">Finish</button>
+	</div>
+</div>
+

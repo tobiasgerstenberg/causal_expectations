@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1529533098247.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9A8F15AF",
+    "lastKnownWriteTime" : 270323735,
+    "last_content_update" : 1529533098247,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "E4817A29",
+        "caption" : "df.practice",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=df.practice&cache_key=E4817A29",
+        "displayedObservations" : "399",
+        "environment" : "",
+        "object" : "df.practice",
+        "preview" : "0",
+        "totalObservations" : "399",
+        "variables" : "4"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
