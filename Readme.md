@@ -13,8 +13,7 @@ This repository contains the data, experiments, and analysis script for the pape
 │       ├── Experiment_3
 │       └── Experiment_4
 ├── data
-├── figures
-└── writeup
+└── figures
 ``` 
 
 - `data/`: contains the participant data base 
