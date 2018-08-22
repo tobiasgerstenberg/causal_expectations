@@ -161,7 +161,8 @@ df.stats %>%
   select(balls, structure, result) %>% 
   kable()
 
-# Model predictions ---------------------------------------------------------------------------------------
+#+ Model predictions ---------------------------------------------------------------------------------------
+#' # Model predictions
 
 # percentage of selecting the ball that normally gets blocked
 df.selections = df.long %>% 
@@ -282,6 +283,11 @@ df.prediction = df.prediction %>%
          correspondence = func_softmax(b.correspondent, a.correspondent, df.betas$beta[2]),
          icard = func_softmax(b.icard, a.icard, df.betas$beta[3])
   )
+
+# display table with fit betas 
+df.betas %>% 
+  mutate(beta = round(beta,1)) %>% 
+  kable()
 
 #+ Plot: Percentages ---------------------------------------------------------
 #' # Plot: Percentages 
