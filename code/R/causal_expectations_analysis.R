@@ -289,8 +289,8 @@ df.betas %>%
   mutate(beta = round(beta,1)) %>% 
   kable()
 
-#+ Plot: Percentages ---------------------------------------------------------
-#' # Plot: Percentages 
+#+ Plot: All situations ---------------------------------------------------------
+#' # Plot: All situations 
 
 # function to get confidence intervals from an exact binomial test 
 getIntervals = function(nsuccess, ntrials){return(binom.test(nsuccess,ntrials)$conf.int[1:2])}
@@ -365,5 +365,70 @@ ggplot(df.plot, aes(x = structure, y = percentage))+
          color = guide_legend(order = 2))
 
 # ggsave("../../figures/results.pdf",width = 10,height = 6)
+
+
+#+ Plot: Subset of situations ---------------------------------------------------------
+#' # Plot: Subset of situations 
+
+# function to get confidence intervals from an exact binomial test 
+getIntervals = function(nsuccess, ntrials){return(binom.test(nsuccess,ntrials)$conf.int[1:2])}
+
+# data frame with data 
+df.plot = df.long %>%
+  select(participant, outcome, balls, structure, choice) %>%
+  filter(balls == "both balls go through", 
+         structure %in% c('conjunctive', 'disjunctive')) %>% 
+  mutate(choice = factor(choice,
+                         levels = c('normal', 'abnormal'),
+                         labels = c(' ball that normally goes through',
+                                    ' ball that normally gets blocked')),
+         response = choice %>% as.numeric()-1,
+         structure = factor(structure,
+                            levels = c('conjunctive', 'disjunctive'),
+                            labels = c('and', 'or'))
+  ) %>%
+  count(outcome, balls, structure, choice) %>%
+  group_by(outcome, balls, structure) %>%
+  mutate(percentage = n/sum(n),
+         groupsize = sum(n)) %>%
+  group_by(outcome, balls, structure, choice) %>%
+  mutate(ci_low = getIntervals(nsuccess = n, ntrials = groupsize)[1],
+         ci_high = getIntervals(nsuccess = n, ntrials = groupsize)[2]) %>%
+  mutate_at(vars(contains('ci_')), funs(ifelse(choice == ' ball that normally goes through', NA, .))) %>%
+  ungroup()
+
+# AND structure
+df.plot = df.plot %>%
+  filter(structure == 'and')
+
+# # OR structure
+# df.plot = df.plot %>%
+#   filter(structure == 'or')
+
+ggplot(df.plot, aes(x = 1, y = percentage))+
+  geom_bar(stat= "identity", aes(fill = choice), color = "black")+
+  geom_hline(yintercept = 0.5,linetype=2,size=1)+
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0, color = "black", size = 1)+
+  scale_y_continuous(labels = percent_format())+
+  scale_fill_manual(values = c(' ball that normally gets blocked' = "#0C67E0",
+                               ' ball that normally goes through' = "#72E669"
+  ))+
+  scale_color_grey(start = 0.8, end = 0)+
+  labs(y = "percentage selected")+
+  theme_bw()+
+  coord_flip(expand = F)+
+  theme(text = element_text(size=24),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.title.y = element_blank(),
+        plot.margin = unit(c(t = 0.1, r = 1, b = 0.2, l = 1), "cm")
+        )+
+  guides(fill = guide_legend(order = 1),
+         color = guide_legend(order = 2))
+
+# ggsave("../../figures/structure_and.pdf", width = 5.5, height = 2)
+# ggsave("../../figures/structure_or.pdf", width = 5.5, height = 2)
 
 
