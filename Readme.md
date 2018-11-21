@@ -13,13 +13,14 @@ This repository contains the data, experiments, and analysis script for the pape
 │       ├── Experiment_3
 │       └── Experiment_4
 ├── data
+├── docs
 └── figures
 ``` 
 
-- `data/`: contains the participant data base 
-- `figures/`: diagram and results figure 
 - `code/R/`: analysis code
-	+ the analysis code can be viewed directly [here](https://rawgit.com/tobiasgerstenberg/causal_expectations/master/code/R/causal_expectations_analysis.html)
+	+ the analysis code can be viewed directly [here](https://tobiasgerstenberg.github.io/causal_expectations/index.html)
 - `code/experiments/`: experiment code
 	+ experiments were run using [psiturk](https://psiturk.org/)
+- `data/`: contains the participant data base 
+- `figures/`: diagram and results figure 
 
