@@ -14,7 +14,8 @@ This repository contains the data, experiments, and analysis script for the pape
 │       └── Experiment_4
 ├── data
 ├── docs
-└── figures
+├── figures
+└── videos
 ``` 
 
 - `code/R/`: analysis code
