@@ -1,7 +1,7 @@
 #' ---
 #' title: Causal expectations analysis file
 #' author: Tobias Gerstenberg
-#' date: August 17, 2018
+#' date: April 18, 2019
 #' output:
 #'    html_document:
 #'      toc: true
@@ -155,6 +155,7 @@ df.stats = tmp %>%
   bind_cols(tmp2) %>% 
   select(balls, structure, estimate, conf.low, conf.high, p.value) %>% 
   mutate_at(vars(estimate, contains('conf')), funs(round(.*100, 2))) %>% 
+  mutate(p.value = p.value * 6) %>% # account for multiple comparisons
   mutate(result = paste0(estimate,'%, CI = [', conf.low, '%, ', conf.high, '%], p ',
                          ifelse(p.value < .001, '< .001', paste0('= ', round(p.value, 3)))))
 
