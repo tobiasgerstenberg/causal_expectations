@@ -18,13 +18,13 @@ figure.path = "../../figures/"
 
 #+ Load packages -------------------------------------------------------------------------------
 #' # Load packages 
-library(RSQLite)
-library(tidyjson)
-library(broom)
-library(scales)
-library(knitr)
-library(Hmisc)
-library(tidyverse)
+library("RSQLite")
+library("tidyjson")
+library("broom")
+library("scales")
+library("knitr")
+library("Hmisc")
+library("tidyverse")
 
 #+ Read and structure data  --------------------------------------------------------------------
 #' # Read and structure data  
@@ -301,13 +301,13 @@ getIntervals = function(nsuccess, ntrials){return(binom.test(nsuccess,ntrials)$c
 df.plot = df.long %>%
   select(participant, outcome, balls, structure, choice) %>%
   mutate(choice = factor(choice,
-                         levels = c('normal', 'abnormal'),
-                         labels = c(' ball that normally goes through',
-                                    ' ball that normally gets blocked')),
+                         levels = c("normal", "abnormal"),
+                         labels = c(" ball that normally goes through",
+                                    " ball that normally gets blocked")),
          response = choice %>% as.numeric()-1,
          structure = factor(structure,
-                            levels = c('conjunctive', 'disjunctive', 'xor'),
-                            labels = c('and', 'or', 'xor'))
+                            levels = c("conjunctive", "disjunctive", "xor"),
+                            labels = c("and", "or", "xor"))
   ) %>%
   count(outcome, balls, structure, choice) %>%
   group_by(outcome, balls, structure) %>%
@@ -316,7 +316,7 @@ df.plot = df.long %>%
   group_by(outcome, balls, structure, choice) %>%
   mutate(ci_low = getIntervals(nsuccess = n, ntrials = groupsize)[1],
          ci_high = getIntervals(nsuccess = n, ntrials = groupsize)[2]) %>%
-  mutate_at(vars(contains('ci_')), funs(ifelse(choice == ' ball that normally goes through', NA, .))) %>%
+  mutate_at(vars(contains("ci_")), funs(ifelse(choice == " ball that normally goes through", NA, .))) %>%
   ungroup()
 
 # data frame with predictions
@@ -327,43 +327,77 @@ df.plot.prediction = df.plot %>%
                                      model.correspondence = correspondence,
                                      model.icard = icard
   )) %>%
-  mutate(normal = ifelse(balls == 'both balls go through', 0, 1)) %>%
-  select(balls, structure, outcome, contains('model')) %>%
-  gather('index', 'value', -c(balls, structure, outcome)) %>%
+  mutate(normal = ifelse(balls == "both balls go through", 0, 1)) %>%
+  select(balls, structure, outcome, contains("model")) %>%
+  gather("index", "value", -c(balls, structure, outcome)) %>%
   mutate(index = factor(index,
-                        levels = c('model.abnormal_selection',
-                                   'model.correspondence',
-                                   'model.icard'
+                        levels = c("model.abnormal_selection",
+                                   "model.correspondence",
+                                   "model.icard"
                         ),
-                        labels = c('abnormal selection',
-                                   'correspondence',
-                                   'necessity and sufficiency'
+                        labels = c(" abnormal selection",
+                                   " correspondence",
+                                   " necessity and sufficiency"
                         )))
 
-ggplot(df.plot, aes(x = structure, y = percentage))+
-  geom_bar(stat= "identity", aes(fill = choice), color = "black")+
-  geom_hline(yintercept = 0.5,linetype=2,size=1)+
-  facet_grid(~balls)+
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0, color = "black", size = 1)+
-  geom_point(data = df.plot.prediction, aes(y = value, group = index, color = index), position = position_dodge(0.9), size = 4)+
+ggplot(data = df.plot, 
+       mapping = aes(x = structure, y = percentage))+
+  geom_bar(stat = "identity", 
+           mapping = aes(fill = choice),
+           color = "black") +
+  geom_hline(yintercept = 0.5,
+             linetype = 2,
+             size = 1) +
+  facet_grid(~balls) +
+  geom_errorbar(mapping = aes(ymin = ci_low, ymax = ci_high),
+                width = 0,
+                color = "black",
+                size = 1) +
+  
+  geom_point(data = df.plot.prediction, 
+             mapping = aes(y = value,
+                           group = index,
+                           shape = index,
+                           fill = index),
+             position = position_dodge(0.9), 
+             size = 4,
+             # shape = 21,
+             color = "black",
+             stroke = 1) +
   scale_y_continuous(labels = percent_format())+
-  scale_fill_manual(values = c(' ball that normally gets blocked' = "#0C67E0",
-                               ' ball that normally goes through' = "#72E669"
-  ))+
-  scale_color_grey(start = 0.8, end = 0)+
-  coord_cartesian(ylim = c(0, 1.01), x = c(0.5, 3.5), expand = F)+
-  labs(y = "percentage selected", x = 'causal structure')+
-  scale_x_discrete(labels = toupper(levels(df.plot$structure)))+
-  theme_bw()+
-  theme(text = element_text(size=24),
+  scale_fill_manual(breaks = c(" ball that normally gets blocked", " ball that normally goes through"),
+                    values = c(" ball that normally gets blocked" = "#0C67E0",
+                               " ball that normally goes through" = "#72E669",
+                               " abnormal selection" = "gray80",
+                               " correspondence" = "gray50",
+                               " necessity and sufficiency" = "gray20"))+
+  scale_shape_manual(breaks = c(" abnormal selection",
+                                " correspondence",
+                                " necessity and sufficiency"),
+                     values = c(" abnormal selection" = 21,
+                                " correspondence" = 21,
+                                " necessity and sufficiency" = 21)) +
+  scale_color_grey(start = 0.8, end = 0) +
+  coord_cartesian(x = c(0.5, 3.5),
+                  ylim = c(0, 1.01),
+                  expand = F) +
+  labs(x = "causal structure",
+       y = "percentage selected") +
+  scale_x_discrete(labels = toupper(levels(df.plot$structure))) +
+  theme_bw() +
+  theme(text = element_text(size = 24),
         panel.grid = element_blank(),
         legend.position = "bottom",
-        legend.direction = 'vertical',
+        legend.direction = "vertical",
         legend.title = element_blank(),
         panel.spacing.x = unit(1,"cm"),
         axis.title.x = element_text(margin = margin(t = 0.5, r = 0, b = 0.1, l = 0,"cm")),
-        strip.background = element_blank())+
-  guides(fill = guide_legend(order = 1),
-         color = guide_legend(order = 2))
+        strip.background = element_blank()) +
+  guides(fill = guide_legend(order = 1,
+                             override.aes = list(color = NA)),
+         shape = guide_legend(order = 2,
+                              override.aes = list(fill = c("gray80", "gray50", "gray20"))))
 
-# ggsave("../../figures/results.pdf",width = 10,height = 6)
+# ggsave(filename = "../../figures/results.pdf",
+#        width = 10,
+#        height = 6)
