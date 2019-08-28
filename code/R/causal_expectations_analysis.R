@@ -394,10 +394,14 @@ ggplot(data = df.plot,
         axis.title.x = element_text(margin = margin(t = 0.5, r = 0, b = 0.1, l = 0,"cm")),
         strip.background = element_blank()) +
   guides(fill = guide_legend(order = 1,
-                             override.aes = list(color = NA)),
+                             override.aes = list(color = NA),
+                             reverse = T),
          shape = guide_legend(order = 2,
                               override.aes = list(fill = c("gray80", "gray50", "gray20"))))
 
 # ggsave(filename = "../../figures/results.pdf",
 #        width = 10,
 #        height = 6)
+
+
+
